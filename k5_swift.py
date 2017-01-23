@@ -21,14 +21,28 @@ response = requests.get(swift_url, headers={'Content-Type': 'application/json','
 print(response.json())
 
 # Create container
+response = requests.put(swift_url+"/drortest", headers={'X-Auth-Token': token})
+#print(response)
 
 # Put file in container
+response = requests.put(swift_url+"/drortest/index.html", headers={'X-Auth-Token': token, 'Content-Type': 'text/html'}, data="hello world!")
+#print(response)
 
 # Make world readable and set website index
+response = requests.post(swift_url+"/drortest", headers={'X-Auth-Token': token, 'X-Container-Read': '.r:*', 'X-Container-Meta-Web-Index': 'index.html'})
+#print(response)
 
 # Get container contents
+response = requests.get(swift_url+"/drortest", headers={'X-Auth-Token': token})
+#print(response.headers)
+#print(response.text)
+
 
 # Delete file from container
+response = requests.delete(swift_url+"/drortest/index.html", headers={'X-Auth-Token': token})
+#print(response)
 
 # Delete container
+response = requests.delete(swift_url+"/drortest", headers={'X-Auth-Token': token})
+#print(response)
 
